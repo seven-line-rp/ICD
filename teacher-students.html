@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журнал Студентов - ICB by Adiyar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="journal.css">
+    <link rel="stylesheet" href="teacher.css">
+</head>
+<body class="journal-page teacher-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <span class="logo-main">ICB</span>
+                <span class="logo-sub">by Adiyar</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" placeholder="Поиск студентов" class="search-input" id="studentSearchInput">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Главная</span>
+            </a>
+            
+            <a href="teacher-journal.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span>Мой журнал</span>
+            </a>
+            
+            <a href="teacher-students.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Журнал Студентов</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="version">v. 1.0.0.1</div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <div class="header-left">
+                <h1 class="page-title">Журнал Студентов</h1>
+                <div class="page-subtitle">Управление студентами, оценками и заданиями</div>
+            </div>
+            <div class="header-right">
+                <button class="btn-add-student" id="addStudentBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>Добавить студента</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Filters and Actions -->
+        <div class="filters-bar">
+            <select class="filter-select" id="groupFilter">
+                <option value="all">Все группы</option>
+                <option value="Группа 1">Группа 1</option>
+                <option value="Группа 2">Группа 2</option>
+                <option value="Группа 3">Группа 3</option>
+            </select>
+            <select class="filter-select" id="courseFilter">
+                <option value="all">Все курсы</option>
+                <option value="1">1 курс</option>
+                <option value="2">2 курс</option>
+                <option value="3">3 курс</option>
+                <option value="4">4 курс</option>
+            </select>
+            <select class="filter-select" id="subjectFilter">
+                <option value="all">Все предметы</option>
+                <option value="web">Web-программирование</option>
+                <option value="cloud">Облачные вычисления</option>
+                <option value="lang">Иностранный язык</option>
+            </select>
+            <div class="filters-actions">
+                <button class="btn-add-student" id="addAssignmentBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                    <span>Добавить ДЗ</span>
+                </button>
+                <button class="btn-add-student btn-outline" id="openAttendanceWeekBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Отметить посещаемость</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Students Table -->
+        <div class="card students-table-card">
+            <div class="table-container">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ФИО</th>
+                            <th>Группа</th>
+                            <th>Курс</th>
+                            <th>Предмет</th>
+                            <th>Оценки</th>
+                            <th>Средний балл</th>
+                            <th>Посещаемость</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Student Modal -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Добавить студента</h3>
+                <button class="modal-close" id="closeStudentModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="studentId">
+                <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" id="studentName" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <input type="text" id="studentGroup" placeholder="Группа 1" required>
+                </div>
+                <div class="form-group">
+                    <label>Курс</label>
+                    <select id="studentCourse" required>
+                        <option value="1">1 курс</option>
+                        <option value="2">2 курс</option>
+                        <option value="3">3 курс</option>
+                        <option value="4">4 курс</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="studentEmail" placeholder="student@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="studentPhone" placeholder="+77001234567">
+                </div>
+                <button type="submit" class="btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grade Modal -->
+    <div class="modal-overlay" id="gradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Выставить оценку</h3>
+                <button class="modal-close" id="closeGradeModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="gradeForm">
+                <input type="hidden" id="gradeStudentId">
+                <div class="form-group">
+                    <label>Студент</label>
+                    <input type="text" id="gradeStudentName" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Предмет</label>
+                    <select id="gradeSubject" required>
+                        <option value="web">Web-программирование</option>
+                        <option value="cloud">Облачные вычисления</option>
+                        <option value="lang">Иностранный язык</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Оценка</label>
+                    <select id="gradeValue" required>
+                        <option value="5">5 (Отлично)</option>
+                        <option value="4">4 (Хорошо)</option>
+                        <option value="3">3 (Удовлетворительно)</option>
+                        <option value="2">2 (Неудовлетворительно)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Тип оценки</label>
+                    <select id="gradeType" required>
+                        <option value="exam">Экзамен</option>
+                        <option value="test">Зачет</option>
+                        <option value="homework">Домашнее задание</option>
+                        <option value="lab">Лабораторная</option>
+                        <option value="midterm">Промежуточная</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Дата</label>
+                    <input type="date" id="gradeDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <textarea id="gradeComment" rows="3" placeholder="Дополнительный комментарий"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Выставить оценку</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div class="modal-overlay" id="attendanceModal">
+        <div class="modal-content large-modal attendance-modal">
+            <div class="modal-header">
+                <h3 id="attendanceModalTitle">Посещаемость студента</h3>
+                <button class="modal-close" id="closeAttendanceModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="attendance-modal-body">
+                <div class="attendance-controls">
+                    <div class="attendance-month-control">
+                        <label for="attendanceMonthPicker">Месяц</label>
+                        <input type="month" id="attendanceMonthPicker">
+                    </div>
+                    <div class="attendance-legend">
+                        <span class="legend-label">Легенда:</span>
+                        <span class="legend-dot present">П</span>
+                        <span class="legend-text">— присутствие</span>
+                        <span class="legend-dot absent">Н</span>
+                        <span class="legend-text">— отсутствие</span>
+                        <span class="legend-dot late">О</span>
+                        <span class="legend-text">— опоздание</span>
+                    </div>
+                </div>
+                <div id="attendanceTableContainer" class="attendance-table-container">
+                    <div class="notes-empty">Выберите месяц, чтобы увидеть журнал посещаемости</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Week Modal -->
+    <div class="modal-overlay" id="attendanceWeekModal">
+        <div class="modal-content large-modal attendance-week-modal">
+            <div class="modal-header">
+                <h3>Журнал посещаемости</h3>
+                <button class="modal-close" id="closeAttendanceWeekModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="attendance-week-body">
+                <div class="attendance-week-controls">
+                    <div class="week-picker">
+                        <label for="attendanceWeekPicker">Неделя</label>
+                        <input type="week" id="attendanceWeekPicker">
+                    </div>
+                    <div class="week-summary">
+                        <span class="week-label" id="attendanceWeekLabel">Текущая неделя</span>
+                        <div class="attendance-legend compact">
+                            <span class="legend-dot present">П</span>
+                            <span class="legend-text">присутствие</span>
+                            <span class="legend-dot absent">Н</span>
+                            <span class="legend-text">отсутствие</span>
+                            <span class="legend-dot late">О</span>
+                            <span class="legend-text">опоздание</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="attendanceWeekTable" class="attendance-week-table-container">
+                    <div class="notes-empty">Выберите неделю, чтобы отметить посещаемость</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Student Details Modal -->
+    <div class="modal-overlay" id="studentDetailsModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="studentDetailsName">Детали студента</h3>
+                <button class="modal-close" id="closeStudentDetailsModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="student-details-content" id="studentDetailsContent">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignment Modal -->
+    <div class="modal-overlay" id="assignmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="assignmentModalTitle">Добавить домашнее задание</h3>
+                <button class="modal-close" id="closeAssignmentModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="assignmentForm">
+                <input type="hidden" id="assignmentId">
+                <div class="form-group">
+                    <label>Название задания</label>
+                    <input type="text" id="assignmentTitle" placeholder="Например: Лабораторная работа №1" required>
+                </div>
+                <div class="form-group">
+                    <label>Предмет</label>
+                    <select id="assignmentSubject" required>
+                        <option value="web">Web-программирование</option>
+                        <option value="cloud">Облачные вычисления</option>
+                        <option value="lang">Иностранный язык</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <select id="assignmentGroup" required>
+                        <option value="all">Все группы</option>
+                        <option value="Группа 1">Группа 1</option>
+                        <option value="Группа 2">Группа 2</option>
+                        <option value="Группа 3">Группа 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Описание задания</label>
+                    <textarea id="assignmentDescription" rows="5" placeholder="Подробное описание задания..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Срок сдачи</label>
+                    <input type="date" id="assignmentDueDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Максимальный балл</label>
+                    <input type="number" id="assignmentMaxScore" min="1" max="100" value="10" required>
+                </div>
+                <button type="submit" class="btn-primary">Создать задание</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assignments List Modal -->
+    <div class="modal-overlay" id="assignmentsListModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Домашние задания</h3>
+                <button class="modal-close" id="closeAssignmentsListModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="assignments-list-content" id="assignmentsListContent">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Assignment Modal -->
+    <div class="modal-overlay" id="reviewAssignmentModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="reviewAssignmentTitle">Проверка задания</h3>
+                <button class="modal-close" id="closeReviewModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="review-content" id="reviewContent">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="teacher-students.js"></script>
+</body>
+</html>
+

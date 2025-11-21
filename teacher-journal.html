@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журнал Преподавателя - ICB by Adiyar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="journal.css">
+    <link rel="stylesheet" href="teacher.css">
+</head>
+<body class="journal-page teacher-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <span class="logo-main">ICB</span>
+                <span class="logo-sub">by Adiyar</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" placeholder="Поиск" class="search-input" id="teacherSearch">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Главная</span>
+            </a>
+            
+            <a href="teacher-students.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Журнал Студентов</span>
+            </a>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Управление</div>
+                <a href="#" class="nav-item" id="coursesBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span>Курсы</span>
+                </a>
+                <a href="#" class="nav-item" id="assignmentsBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span>Задания</span>
+                </a>
+                <a href="#" class="nav-item" id="scheduleBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Расписание</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="#" class="footer-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Инструкция</span>
+            </a>
+            <a href="#" class="footer-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Обратная связь</span>
+            </a>
+            <div class="version">v. 1.0.0.1</div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="content-header">
+            <div class="header-left">
+                <div class="date-info">
+                    <div class="date" id="currentDate">15 Сентября, 2025</div>
+                    <div class="day" id="currentDay">Понедельник</div>
+                </div>
+                <div class="welcome-message">
+                    Добро пожаловать, <span id="teacherName">Преподаватель</span>! У вас <span id="pendingTasks">0</span> заданий на проверку.
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Преподаватель</div>
+                        <div class="user-role">Преподаватель</div>
+                    </div>
+                    <div class="user-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <button class="icon-btn notification-btn" id="teacherNotificationsBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalStudents">0</div>
+                    <div class="stat-label">Всего студентов</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalAssignments">0</div>
+                    <div class="stat-label">Активных заданий</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="pendingReviews">0</div>
+                    <div class="stat-label">На проверке</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-purple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="avgGrade">0</div>
+                    <div class="stat-label">Средний балл</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn" id="addAssignmentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Добавить задание</span>
+            </button>
+            <button class="action-btn" id="viewStudentsBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Журнал Студентов</span>
+            </button>
+            <button class="action-btn" id="viewScheduleBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Расписание</span>
+            </button>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="content-grid">
+            <div class="card recent-students-card">
+                <div class="card-header">
+                    <h3 class="card-title">Последние студенты</h3>
+                    <a href="teacher-students.html" class="card-link">Все студенты →</a>
+                </div>
+                <div class="students-list" id="recentStudentsList">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+            
+            <div class="card recent-assignments-card">
+                <div class="card-header">
+                    <h3 class="card-title">Последние задания</h3>
+                    <button class="btn-add-note" id="addAssignmentQuickBtn">+ Добавить</button>
+                </div>
+                <div class="assignments-list" id="recentAssignmentsList">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notifications Modal -->
+    <div class="notifications-modal" id="notificationsModal">
+        <div class="notifications-content">
+            <div class="notifications-header">
+                <h3>Уведомления</h3>
+                <button class="close-notifications" id="closeNotifications">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="notifications-list" id="notificationsList">
+                <!-- Notifications will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Modal -->
+    <div class="modal-overlay" id="coursesModal">
+        <div class="modal-content large-modal courses-modal">
+            <div class="modal-header">
+                <h3>Мои курсы</h3>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="openCourseFormBtn">Добавить курс</button>
+                    <button class="modal-close" id="closeCoursesModal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="courses-modal-body">
+                <div class="courses-summary" id="coursesSummary"></div>
+                <div class="courses-list" id="coursesList">
+                    <!-- Courses injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Form Modal -->
+    <div class="modal-overlay" id="courseFormModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить курс</h3>
+                <button class="modal-close" id="closeCourseForm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="courseForm">
+                <div class="form-group">
+                    <label>Название курса</label>
+                    <input type="text" id="courseTitle" required placeholder="Например: Web-программирование">
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <input type="text" id="courseGroup" required placeholder="Группа 1">
+                </div>
+                <div class="form-group">
+                    <label>Предмет</label>
+                    <select id="courseSubject" required>
+                        <option value="web">Web-программирование</option>
+                        <option value="cloud">Облачные вычисления</option>
+                        <option value="lang">Иностранный язык</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Семестр</label>
+                    <input type="text" id="courseSemester" required placeholder="Осень 2025">
+                </div>
+                <div class="form-group">
+                    <label>Занятий в неделю</label>
+                    <input type="number" id="courseLessonsPerWeek" min="1" max="10" value="2" required>
+                </div>
+                <div class="form-group">
+                    <label>Ближайшее занятие</label>
+                    <input type="datetime-local" id="courseNextLesson" required>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="courseDescription" rows="4" placeholder="Краткое описание курса"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Сохранить курс</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal-content large-modal schedule-modal">
+            <div class="modal-header">
+                <h3>Расписание недели</h3>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="openScheduleFormBtn">Добавить занятие</button>
+                    <button class="modal-close" id="closeScheduleModal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="schedule-modal-body">
+                <div class="schedule-toolbar">
+                    <div>
+                        <div class="schedule-week-label" id="scheduleWeekLabel">Неделя 1</div>
+                        <div class="schedule-week-meta">Автоматически генерируется из текущей даты</div>
+                    </div>
+                    <div class="schedule-legend">
+                        <span class="legend-pill lecture">Лекция</span>
+                        <span class="legend-pill practice">Практика</span>
+                        <span class="legend-pill lab">Лабораторная</span>
+                    </div>
+                </div>
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- schedule -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Form Modal -->
+    <div class="modal-overlay" id="scheduleFormModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Новое занятие</h3>
+                <button class="modal-close" id="closeScheduleForm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="scheduleForm">
+                <div class="form-group">
+                    <label>День недели</label>
+                    <select id="scheduleDay" required>
+                        <option value="Понедельник">Понедельник</option>
+                        <option value="Вторник">Вторник</option>
+                        <option value="Среда">Среда</option>
+                        <option value="Четверг">Четверг</option>
+                        <option value="Пятница">Пятница</option>
+                        <option value="Суббота">Суббота</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Начало</label>
+                        <input type="time" id="scheduleStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Конец</label>
+                        <input type="time" id="scheduleEnd" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Предмет</label>
+                    <input type="text" id="scheduleSubject" required placeholder="Например: Облачные вычисления">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Группа</label>
+                        <input type="text" id="scheduleGroup" required placeholder="Группа 1">
+                    </div>
+                    <div class="form-group">
+                        <label>Аудитория</label>
+                        <input type="text" id="scheduleRoom" placeholder="Ауд. 203">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Тип занятия</label>
+                    <select id="scheduleType" required>
+                        <option value="lecture">Лекция</option>
+                        <option value="practice">Практика</option>
+                        <option value="lab">Лабораторная</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Сохранить занятие</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="teacher-journal.js"></script>
+</body>
+</html>
+
