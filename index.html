@@ -107,9 +107,9 @@
                 <button class="tab" data-tab="students">Студентам</button>
                 <button class="tab" data-tab="teachers">Преподавателям</button>
             </div>
-            
-            <!-- Контент для Абитуриентов -->
-            <div class="services-grid" id="applicants-content">
+            <div class="services-content">
+                <!-- Контент для Абитуриентов -->
+                <div class="services-grid active" id="applicants-content">
                 <div class="service-card service-card-gradient-1">
                     <div class="service-icon service-icon-purple">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -177,10 +177,10 @@
                     <h3 class="service-title">Подача документов онлайн</h3>
                     <p class="service-description">Электронная подача заявлений и документов для поступления</p>
                 </div>
-            </div>
-            
-            <!-- Контент для Студентов -->
-            <div class="services-grid" id="students-content" style="display: none;">
+                </div>
+                
+                <!-- Контент для Студентов -->
+                <div class="services-grid" id="students-content">
                 <div class="service-card service-card-gradient-1">
                     <div class="service-icon service-icon-purple">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -251,10 +251,10 @@
                     <h3 class="service-title">Расписание занятий</h3>
                     <p class="service-description">Актуальное расписание лекций, семинаров и экзаменов</p>
                 </div>
-            </div>
-            
-            <!-- Контент для Преподавателей -->
-            <div class="services-grid" id="teachers-content" style="display: none;">
+                </div>
+                
+                <!-- Контент для Преподавателей -->
+                <div class="services-grid" id="teachers-content">
                 <div class="service-card service-card-gradient-1">
                     <div class="service-icon service-icon-purple">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -325,6 +325,7 @@
                     </div>
                     <h3 class="service-title">Управление расписанием</h3>
                     <p class="service-description">Создание и редактирование расписания занятий и консультаций</p>
+                </div>
                 </div>
             </div>
         </div>
@@ -534,6 +535,51 @@
         </div>
     </div>
 
+    <!-- Support Chat -->
+    <button class="support-chat-btn" id="supportChatBtn" aria-label="Чат поддержки">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>1</span>
+    </button>
+
+    <div class="support-chat-modal" id="supportChatModal" role="dialog" aria-modal="true">
+        <div class="support-chat-header">
+            <div class="support-chat-agent">
+                <strong>ICB Support</strong>
+                <span class="support-chat-status">Онлайн · отвечает ~2 мин</span>
+            </div>
+            <button class="support-chat-close" id="closeSupportChat" aria-label="Закрыть чат">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="support-chat-body" id="supportChatBody">
+            <div class="support-quick-actions" id="supportQuickActions">
+                <button type="button" class="support-quick-btn" data-message="Привет">Привет</button>
+                <button type="button" class="support-quick-btn" data-message="Где посмотреть расписание?">Расписание</button>
+                <button type="button" class="support-quick-btn" data-message="Как зарегистрироваться?">Регистрация</button>
+                <button type="button" class="support-quick-btn" data-message="Как связаться с поддержкой?">Контакты</button>
+                <button type="button" class="support-quick-btn" data-message="Какие документы нужны?">Документы</button>
+            </div>
+            <div class="support-message bot">
+                <span>Привет! Я виртуальный ассистент. Спроси меня, например: «расписание», «контакты», «регистрация».</span>
+                <time>сейчас</time>
+            </div>
+            <div class="support-typing" id="supportTyping" hidden>
+                <span></span><span></span><span></span>
+                Печатаем ответ...
+            </div>
+            <button type="button" class="support-operator-btn" id="supportOperatorBtn">Позвать оператора</button>
+        </div>
+        <form class="support-chat-footer" id="supportChatForm">
+            <input type="text" class="support-input" id="supportChatInput" placeholder="Напечатайте сообщение..." autocomplete="off">
+            <button class="support-send" type="submit">Отправить</button>
+        </form>
+    </div>
+
     <script>
         // Header scroll functionality
         const header = document.querySelector('.header');
@@ -552,26 +598,55 @@
         });
         
         // Tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
+        const serviceTabs = document.querySelectorAll('.tab');
+        const serviceGrids = document.querySelectorAll('.services-grid');
+
+        serviceTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                const targetId = `${tab.getAttribute('data-tab')}-content`;
+
+                serviceTabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
-                // Hide all content grids
-                document.querySelectorAll('.services-grid').forEach(grid => {
-                    grid.style.display = 'none';
+
+                serviceGrids.forEach(grid => {
+                    if (grid.id === targetId) {
+                        grid.classList.add('active');
+                    } else {
+                        grid.classList.remove('active');
+                    }
                 });
-                
-                // Show selected content
-                const tabName = tab.getAttribute('data-tab');
-                const contentId = tabName + '-content';
-                const content = document.getElementById(contentId);
-                if (content) {
-                    content.style.display = 'grid';
-                }
             });
         });
+
+        // Hero subtitle rotation
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const HERO_PHRASES = [
+            'Централизованный доступ к образовательным платформам и цифровым ресурсам.',
+            'Все образовательные сервисы собираются в одном аккаунте ICB.',
+            'Следи за расписанием, новостями и оценками без лишних переходов.',
+            'Поддерживаем студентов и преподавателей мощными цифровыми инструментами.',
+            'Учись умнее: персональные сервисы, консультации и чат-помощник всегда рядом.'
+        ];
+        let heroPhraseIndex = 0;
+        const HERO_INTERVAL = 180000;
+        const HERO_FIRST_DELAY = 8000;
+
+        const rotateHeroSubtitle = () => {
+            heroPhraseIndex = (heroPhraseIndex + 1) % HERO_PHRASES.length;
+            heroSubtitle.classList.add('subtitle-fade');
+            setTimeout(() => {
+                heroSubtitle.textContent = HERO_PHRASES[heroPhraseIndex];
+                heroSubtitle.classList.remove('subtitle-fade');
+            }, 420);
+        };
+
+        if (heroSubtitle) {
+            heroSubtitle.textContent = HERO_PHRASES[0];
+            setTimeout(function cycle() {
+                rotateHeroSubtitle();
+                setTimeout(cycle, HERO_INTERVAL);
+            }, HERO_FIRST_DELAY);
+        }
         
         // Auth Modal functionality
         const authModal = document.getElementById('authModal');
@@ -712,7 +787,258 @@
             hideUserProfile();
             profileContextMenu.classList.remove('active');
         });
+
+        // Support chat
+        const supportChatBtn = document.getElementById('supportChatBtn');
+        const supportChatModal = document.getElementById('supportChatModal');
+        const closeSupportChat = document.getElementById('closeSupportChat');
+        const supportChatBody = document.getElementById('supportChatBody');
+        const supportChatForm = document.getElementById('supportChatForm');
+        const supportChatInput = document.getElementById('supportChatInput');
+        const supportQuickActions = document.getElementById('supportQuickActions');
+        const supportTyping = document.getElementById('supportTyping');
+        const supportOperatorBtn = document.getElementById('supportOperatorBtn');
+        const supportChatHeader = document.querySelector('.support-chat-header');
+
+        if (supportChatBtn && supportChatModal && supportChatBody && supportChatForm && supportChatInput) {
+            const CHAT_RESPONSES = {
+                'привет': 'Привет! Готов помочь с навигацией по платформе и документам.',
+                'расписание': 'Актуальное расписание смотри в блоке «Сервисы → Студентам → Расписание занятий». Данные обновляются каждый день.',
+                'контакты': 'Связаться с оператором можно по email support@icb.kz или телефону +7 (700) 123‑45‑67 с 09:00 до 21:00.',
+                'регистрация': 'Нажми «Зарегистрироваться» в шапке, заполни форму и подтверди email. Для преподавателя выбор роли обязателен.',
+                'оплата': 'Оплатить обучение можно онлайн через личный кабинет или офлайн в кассе колледжа. Подробнее в разделе «Сервисы → Абитуриентам → Стоимость обучения».',
+                'поддержка': 'Я могу подсказать по работе сайта. Для сложных ситуаций позови оператора кнопкой ниже или командой «оператор».',
+                'help': 'Доступные команды: привет, расписание, регистрация, контакты, оплата, поддержка, документы, стипендия, требования, оператор.',
+                'документы': 'Актуальный список документов лежит в разделе «Сервисы → Абитуриентам → Информация о специальностях». Там же шаблоны заявлений в PDF.',
+                'стипендия': 'Стипендию получают студенты с успеваемостью выше 3.5. Выплаты оформляются через личный кабинет до 5 числа месяца.',
+                'требования': 'Для онлайн-курсов нужен браузер Chrome/Edge, стабильный интернет от 5 Мбит/с и устройство с камерой/микрофоном.',
+                'оператор': 'Оператор уже уведомлён и свяжется с тобой в ближайшие 5 минут через указанные контакты.'
+            };
+
+            const FALLBACK_REPLIES = [
+                'Не совсем понял вопрос. Попробуй задать его по-другому или напиши «поддержка».',
+                'Пока не знаю ответа, но могу соединить с оператором — нажми кнопку «Позвать оператора» ниже.',
+                'Этот вопрос лучше уточнить у менеджера приёмной комиссии. Напиши «контакты», если нужны координаты.'
+            ];
+
+            const HISTORY_KEY = 'icbSupportChatHistory';
+            let chatHistory = [];
+            let chatManualPosition = false;
+            let isChatDragging = false;
+            let dragOffsetX = 0;
+            let dragOffsetY = 0;
+
+            function saveChatHistory() {
+                try {
+                    localStorage.setItem(HISTORY_KEY, JSON.stringify(chatHistory));
+                } catch (err) {
+                    console.warn('Не удалось сохранить историю чата', err);
+                }
+            }
+
+            function addChatMessage(sender, text, persist = true, timeLabel) {
+                const wrapper = document.createElement('div');
+                wrapper.className = `support-message ${sender}`;
+                const span = document.createElement('span');
+                span.textContent = text;
+                const time = document.createElement('time');
+                const now = new Date();
+                const formattedTime = timeLabel || now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                time.textContent = formattedTime;
+                wrapper.appendChild(span);
+                wrapper.appendChild(time);
+
+                if (supportTyping && !supportTyping.hidden) {
+                    supportChatBody.insertBefore(wrapper, supportTyping);
+                } else {
+                    supportChatBody.appendChild(wrapper);
+                }
+
+                supportChatBody.scrollTop = supportChatBody.scrollHeight;
+
+                if (persist) {
+                    chatHistory.push({ sender, text, time: formattedTime });
+                    saveChatHistory();
+                }
+            }
+
+            function loadChatHistory() {
+                try {
+                    const saved = localStorage.getItem(HISTORY_KEY);
+                    if (saved) {
+                        chatHistory = JSON.parse(saved);
+                        chatHistory.forEach(entry => addChatMessage(entry.sender, entry.text, false, entry.time));
+                    }
+                } catch (err) {
+                    console.warn('Не удалось загрузить историю чата', err);
+                }
+            }
+
+            function getBotResponse(message) {
+                const normalized = message.toLowerCase().trim();
+                if (!normalized) return null;
+                const key = Object.keys(CHAT_RESPONSES).find(cmd => normalized.includes(cmd));
+                if (key) {
+                    return CHAT_RESPONSES[key];
+                }
+                return FALLBACK_REPLIES[Math.floor(Math.random() * FALLBACK_REPLIES.length)];
+            }
+
+            function showTyping() {
+                if (supportTyping) {
+                    supportTyping.hidden = false;
+                }
+            }
+
+            function hideTyping() {
+                if (supportTyping) {
+                    supportTyping.hidden = true;
+                }
+            }
+
+            function handleBotResponse(message) {
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    const reply = getBotResponse(message);
+                    if (reply) {
+                        addChatMessage('bot', reply);
+                    }
+                }, 700);
+            }
+
+            function resetChatPosition() {
+                if (chatManualPosition) return;
+                supportChatModal.style.top = '';
+                supportChatModal.style.left = '';
+                supportChatModal.style.right = '16px';
+                supportChatModal.style.bottom = '16px';
+            }
+
+            function openSupportChat() {
+                resetChatPosition();
+                supportChatModal.classList.add('active');
+                supportChatBtn.setAttribute('aria-expanded', 'true');
+                setTimeout(() => supportChatInput.focus(), 150);
+            }
+
+            function closeSupportChatModal() {
+                supportChatModal.classList.remove('active');
+                supportChatBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            function startChatDrag(event) {
+                if (window.innerWidth <= 600) return;
+                if (event.button !== undefined && event.button !== 0) return;
+                if (event.target.closest('.support-chat-close')) return;
+                isChatDragging = true;
+                chatManualPosition = true;
+                supportChatModal.classList.add('dragging');
+                const rect = supportChatModal.getBoundingClientRect();
+                dragOffsetX = event.clientX - rect.left;
+                dragOffsetY = event.clientY - rect.top;
+                document.addEventListener('pointermove', onChatDrag);
+                document.addEventListener('pointerup', stopChatDrag);
+            }
+
+            function onChatDrag(event) {
+                if (!isChatDragging) return;
+                const width = supportChatModal.offsetWidth;
+                const height = supportChatModal.offsetHeight;
+                const minX = 8;
+                const minY = 8;
+                const maxX = window.innerWidth - width - 8;
+                const maxY = window.innerHeight - height - 8;
+                let nextX = event.clientX - dragOffsetX;
+                let nextY = event.clientY - dragOffsetY;
+                nextX = Math.min(Math.max(nextX, minX), Math.max(minX, maxX));
+                nextY = Math.min(Math.max(nextY, minY), Math.max(minY, maxY));
+                supportChatModal.style.left = `${nextX}px`;
+                supportChatModal.style.top = `${nextY}px`;
+                supportChatModal.style.right = 'auto';
+                supportChatModal.style.bottom = 'auto';
+            }
+
+            function stopChatDrag() {
+                isChatDragging = false;
+                supportChatModal.classList.remove('dragging');
+                document.removeEventListener('pointermove', onChatDrag);
+                document.removeEventListener('pointerup', stopChatDrag);
+            }
+
+            supportChatBtn.addEventListener('click', openSupportChat);
+            closeSupportChat.addEventListener('click', closeSupportChatModal);
+
+            document.addEventListener('click', (event) => {
+                if (!supportChatModal.classList.contains('active')) return;
+                const isClickInside = supportChatModal.contains(event.target) || supportChatBtn.contains(event.target);
+                if (!isClickInside) {
+                    closeSupportChatModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && supportChatModal.classList.contains('active')) {
+                    closeSupportChatModal();
+                }
+            });
+
+            supportChatForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const message = supportChatInput.value.trim();
+                if (!message) return;
+
+                addChatMessage('user', message);
+                supportChatInput.value = '';
+                handleBotResponse(message);
+            });
+
+            if (supportQuickActions) {
+                supportQuickActions.addEventListener('click', (event) => {
+                    const btn = event.target.closest('.support-quick-btn');
+                    if (!btn) return;
+                    const preset = btn.dataset.message || btn.textContent;
+                    if (!preset) return;
+                    addChatMessage('user', preset);
+                    handleBotResponse(preset);
+                });
+            }
+
+            if (supportOperatorBtn) {
+                supportOperatorBtn.addEventListener('click', () => {
+                    const text = 'Позвать оператора';
+                    addChatMessage('user', text);
+                    showTyping();
+                    setTimeout(() => {
+                        hideTyping();
+                        addChatMessage('bot', 'Оператор получил твою заявку и напишет тебе в течение 5 минут. Если срочно, позвони +7 (700) 123‑45‑67.');
+                    }, 800);
+                });
+            }
+
+            if (supportChatHeader) {
+                supportChatHeader.addEventListener('pointerdown', startChatDrag);
+            }
+
+            window.addEventListener('resize', () => {
+                if (!chatManualPosition) return;
+                const rect = supportChatModal.getBoundingClientRect();
+                const width = supportChatModal.offsetWidth;
+                const height = supportChatModal.offsetHeight;
+                const maxX = window.innerWidth - width - 8;
+                const maxY = window.innerHeight - height - 8;
+                const clampedX = Math.min(rect.left, Math.max(8, maxX));
+                const clampedY = Math.min(rect.top, Math.max(8, maxY));
+                supportChatModal.style.left = `${clampedX}px`;
+                supportChatModal.style.top = `${clampedY}px`;
+                supportChatModal.style.right = 'auto';
+                supportChatModal.style.bottom = 'auto';
+            });
+
+            loadChatHistory();
+        }
     </script>
 </body>
 </html>
+
 
