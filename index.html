@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICB by Adiyar - Централизованный доступ к образовательным платформам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-main">ICB</span>
+                    <span class="logo-sub">by Adiyar</span>
+                </div>
+                <div class="header-buttons">
+                    <div class="auth-buttons">
+                        <button class="btn btn-register">Зарегистрироваться</button>
+                        <button class="btn btn-login">Войти</button>
+                    </div>
+                    <div class="user-profile" id="userProfile" style="display: none;">
+                        <div class="profile-avatar" id="profileAvatar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span class="profile-name" id="profileName">Пользователь</span>
+                        <div class="profile-context-menu" id="profileContextMenu">
+                            <a href="journal.html" class="context-menu-item journal-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                <span>Журнал</span>
+                            </a>
+                            <button class="context-menu-item logout-btn" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Выйти из аккаунта</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Централизованный доступ к образовательным платформам и цифровым ресурсам.</h1>
+            <p class="hero-subtitle">Эффективность обучения начинается с простого доступа.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-red">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Всё для учебы в одном месте</h3>
+                    <p class="feature-description">Студенты видят актуальные электронные курсы, учебные материалы, отслеживают свои оценки.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Прямая связь с преподавателями</h3>
+                    <p class="feature-description">На сайте есть личные кабинеты, формы обратной связи, онлайн-запись на консультации.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                            <path d="M18 14h-8"></path>
+                            <path d="M15 11h-5"></path>
+                            <path d="M15 17h-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Простой доступ к актуальным новостям</h3>
+                    <p class="feature-description">Быстрый доступ к новостям, объявлениям и важной информации для студентов и преподавателей.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Сервисы</h2>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="applicants">Абитуриентам</button>
+                <button class="tab" data-tab="students">Студентам</button>
+                <button class="tab" data-tab="teachers">Преподавателям</button>
+            </div>
+            
+            <!-- Контент для Абитуриентов -->
+            <div class="services-grid" id="applicants-content">
+                <div class="service-card service-card-gradient-1">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Подготовительные курсы</h3>
+                    <p class="service-description">Интенсивная подготовка к вступительным экзаменам и тестированию</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-2">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Информация о специальностях</h3>
+                    <p class="service-description">Подробные описания программ обучения и требований к поступлению</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-3">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Виртуальные туры</h3>
+                    <p class="service-description">Онлайн-экскурсии по кампусу и знакомство с инфраструктурой</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-4">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Консультации с приемной комиссией</h3>
+                    <p class="service-description">Онлайн-запись на консультации и ответы на вопросы о поступлении</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-5">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Стоимость обучения</h3>
+                    <p class="service-description">Информация о ценах, стипендиях и программах финансовой поддержки</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-6">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Подача документов онлайн</h3>
+                    <p class="service-description">Электронная подача заявлений и документов для поступления</p>
+                </div>
+            </div>
+            
+            <!-- Контент для Студентов -->
+            <div class="services-grid" id="students-content" style="display: none;">
+                <div class="service-card service-card-gradient-1">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Художественная литература</h3>
+                    <p class="service-description">Электронные и аудиокниги в открытом доступе для чтения</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-2">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Электронные курсы</h3>
+                    <p class="service-description">Доступ к учебным материалам, лекциям и заданиям по всем предметам</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-3">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Общение с преподавателями</h3>
+                    <p class="service-description">Личные кабинеты для связи с преподавателями и консультаций</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-4">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Журнал оценок</h3>
+                    <p class="service-description">Отслеживание успеваемости и просмотр оценок по всем предметам</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-5">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                            <path d="M18 14h-8"></path>
+                            <path d="M15 11h-5"></path>
+                            <path d="M15 17h-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Новости и объявления</h3>
+                    <p class="service-description">Актуальная информация о событиях, расписании и важных датах</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-6">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Расписание занятий</h3>
+                    <p class="service-description">Актуальное расписание лекций, семинаров и экзаменов</p>
+                </div>
+            </div>
+            
+            <!-- Контент для Преподавателей -->
+            <div class="services-grid" id="teachers-content" style="display: none;">
+                <div class="service-card service-card-gradient-1">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Управление курсами</h3>
+                    <p class="service-description">Создание и редактирование учебных материалов и заданий</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-2">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Работа со студентами</h3>
+                    <p class="service-description">Проверка работ, выставление оценок и обратная связь</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-3">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Консультации</h3>
+                    <p class="service-description">Онлайн-запись студентов на консультации и управление расписанием</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-4">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Обратная связь</h3>
+                    <p class="service-description">Формы для получения обратной связи от студентов</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-5">
+                    <div class="service-icon service-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                            <path d="M18 14h-8"></path>
+                            <path d="M15 11h-5"></path>
+                            <path d="M15 17h-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Публикация новостей</h3>
+                    <p class="service-description">Размещение объявлений и важной информации для студентов</p>
+                </div>
+                
+                <div class="service-card service-card-gradient-6">
+                    <div class="service-icon service-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Управление расписанием</h3>
+                    <p class="service-description">Создание и редактирование расписания занятий и консультаций</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section class="subjects">
+        <div class="container">
+            <h2 class="section-title">Предметы</h2>
+            <p class="subjects-description">Система знаний, умений и навыков, отобранных из определённой отрасли науки, техники для изучения в учебном заведении</p>
+            
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 18h6"></path>
+                            <path d="M16 12h6"></path>
+                            <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path>
+                            <path d="M14 4h6v6"></path>
+                            <path d="M10 14l6-6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Web-программирование</h3>
+                    <p class="subject-description">Разработка сайтов и сервисов, которые функционируют в интернете</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Иностранный язык</h3>
+                    <p class="subject-description">Процесс освоения языка, который не является официальным для конкретной страны и на котором обычно не говорят</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Облачные вычисления</h3>
+                    <p class="subject-description">Модель предоставления вычислительных ресурсов через интернет</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 18h6"></path>
+                            <path d="M16 12h6"></path>
+                            <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path>
+                            <path d="M14 4h6v6"></path>
+                            <path d="M10 14l6-6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Web-программирование</h3>
+                    <p class="subject-description">Разработка сайтов и сервисов, которые функционируют в интернете</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Иностранный язык</h3>
+                    <p class="subject-description">Процесс освоения языка, который не является официальным для конкретной страны и на котором обычно не говорят</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Облачные вычисления</h3>
+                    <p class="subject-description">Модель предоставления вычислительных ресурсов через интернет</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 18h6"></path>
+                            <path d="M16 12h6"></path>
+                            <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path>
+                            <path d="M14 4h6v6"></path>
+                            <path d="M10 14l6-6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Web-программирование</h3>
+                    <p class="subject-description">Разработка сайтов и сервисов, которые функционируют в интернете</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Иностранный язык</h3>
+                    <p class="subject-description">Процесс освоения языка, который не является официальным для конкретной страны и на котором обычно не говорят</p>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon subject-icon-orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="subject-title">Облачные вычисления</h3>
+                    <p class="subject-description">Модель предоставления вычислительных ресурсов через интернет</p>
+                </div>
+            </div>
+            
+            <div class="show-more">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <span>Больше предметов</span>
+            </div>
+        </div>
+  </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-main">ICB</span>
+                    <span class="logo-sub">by Adiyar</span>
+                    <span class="logo-year">2005-2006</span>
+                </div>
+                <div class="footer-tagline">
+                    Централизованный доступ к образовательным платформам и цифровым ресурсам.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Auth -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-auth">
+            <button class="modal-close" id="closeAuthModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <h2 class="modal-title">Авторизация</h2>
+            <p class="modal-subtitle">Введи логин/телефон и пароль для авторизации в личном кабинете</p>
+            
+            <!-- Тестовые данные для входа -->
+            <div class="test-credentials">
+                <p><strong>Тестовые данные для входа:</strong></p>
+                <p><strong>Студент:</strong></p>
+                <p>Логин: <code>student2024</code> или <code>+77001234567</code></p>
+                <p>Пароль: <code>TestPass123!</code></p>
+                <p style="margin-top: 12px;"><strong>Преподаватель:</strong></p>
+                <p>Логин: <code>teacher2024</code> или <code>teacher@icb.kz</code></p>
+                <p>Пароль: <code>TeacherPass123!</code></p>
+            </div>
+            
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <label for="login">Логин / номер телефона</label>
+                    <input 
+                        type="text" 
+                        id="login" 
+                        name="login" 
+                        placeholder="Введите логин / номер телефона"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Введите пароль"
+                        required
+                    >
+                </div>
+                
+                <div class="form-options">
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                
+                <button type="submit" class="btn-auth">Войти</button>
+            </form>
+            
+            <div class="auth-footer">
+                <a href="#" class="register-link">Отсутствует аккаунт? Зарегистрироваться &gt;</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll functionality
+        const header = document.querySelector('.header');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Hide all content grids
+                document.querySelectorAll('.services-grid').forEach(grid => {
+                    grid.style.display = 'none';
+                });
+                
+                // Show selected content
+                const tabName = tab.getAttribute('data-tab');
+                const contentId = tabName + '-content';
+                const content = document.getElementById(contentId);
+                if (content) {
+                    content.style.display = 'grid';
+                }
+            });
+        });
+        
+        // Auth Modal functionality
+        const authModal = document.getElementById('authModal');
+        const openAuthBtn = document.querySelector('.btn-login');
+        const closeAuthBtn = document.getElementById('closeAuthModal');
+        const authForm = document.getElementById('authForm');
+        
+        // Тестовые данные для проверки
+        const TEST_CREDENTIALS = {
+            student: {
+                login: ['student2024', '+77001234567'],
+                password: 'TestPass123!',
+                role: 'student'
+            },
+            teacher: {
+                login: ['teacher2024', 'teacher@icb.kz'],
+                password: 'TeacherPass123!',
+                role: 'teacher'
+            }
+        };
+        
+        // Открытие модального окна
+        openAuthBtn.addEventListener('click', () => {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Закрытие модального окна
+        closeAuthBtn.addEventListener('click', () => {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Закрытие при клике на overlay
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && authModal.classList.contains('active')) {
+                authModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // User Profile functionality
+        const userProfile = document.getElementById('userProfile');
+        const authButtons = document.querySelector('.auth-buttons');
+        const profileName = document.getElementById('profileName');
+        const profileContextMenu = document.getElementById('profileContextMenu');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        // Функция для показа профиля
+        function showUserProfile(login) {
+            authButtons.style.display = 'none';
+            userProfile.style.display = 'flex';
+            profileName.textContent = login;
+            // Сохраняем состояние авторизации в localStorage
+            localStorage.setItem('isAuthenticated', 'true');
+            localStorage.setItem('userLogin', login);
+        }
+        
+        // Функция для скрытия профиля
+        function hideUserProfile() {
+            authButtons.style.display = 'flex';
+            userProfile.style.display = 'none';
+            profileContextMenu.classList.remove('active');
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userLogin');
+        }
+        
+        // Проверка авторизации при загрузке страницы
+        if (localStorage.getItem('isAuthenticated') === 'true') {
+            const savedLogin = localStorage.getItem('userLogin') || 'Пользователь';
+            showUserProfile(savedLogin);
+        }
+        
+        // Обработка формы авторизации
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const login = document.getElementById('login').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Проверка студента
+            const isStudent = TEST_CREDENTIALS.student.login.includes(login) && 
+                             password === TEST_CREDENTIALS.student.password;
+            
+            // Проверка преподавателя
+            const isTeacher = TEST_CREDENTIALS.teacher.login.includes(login) && 
+                             password === TEST_CREDENTIALS.teacher.password;
+            
+            if (isStudent) {
+                localStorage.setItem('userRole', 'student');
+                showUserProfile(login);
+                authModal.classList.remove('active');
+                document.body.style.overflow = '';
+                authForm.reset();
+            } else if (isTeacher) {
+                localStorage.setItem('userRole', 'teacher');
+                localStorage.setItem('isAuthenticated', 'true');
+                localStorage.setItem('userLogin', login);
+                window.location.href = 'teacher-journal.html';
+            } else {
+                alert('Неверный логин или пароль. Используйте тестовые данные из подсказки.');
+            }
+        });
+        
+        // Функция открытия меню
+        function toggleProfileMenu(e) {
+            e.preventDefault();
+            profileContextMenu.classList.toggle('active');
+        }
+        
+        // Правый клик по профилю для показа контекстного меню (desktop)
+        userProfile.addEventListener('contextmenu', toggleProfileMenu);
+        
+        // Тап/клик на мобильных устройствах
+        userProfile.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024) {
+                toggleProfileMenu(e);
+            }
+        });
+        
+        // Закрытие контекстного меню при клике вне его
+        document.addEventListener('click', (e) => {
+            if (!userProfile.contains(e.target) && !profileContextMenu.contains(e.target)) {
+                profileContextMenu.classList.remove('active');
+            }
+        });
+        
+        // Выход из аккаунта
+        logoutBtn.addEventListener('click', () => {
+            hideUserProfile();
+            profileContextMenu.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
+
