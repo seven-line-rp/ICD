@@ -6,52 +6,86 @@
     <title>ICB by Adiyar - Централизованный доступ к образовательным платформам</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="theme-dark">
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <span class="logo-main">ICB</span>
-                    <span class="logo-sub">by Adiyar</span>
-                </div>
-                <div class="header-buttons">
-                    <div class="auth-buttons">
-                        <button class="btn btn-register">Зарегистрироваться</button>
-                        <button class="btn btn-login">Войти</button>
+                <button class="burger-btn" id="burgerToggle" aria-label="Открыть меню" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-brand">
+                    <div class="logo">
+                        <span class="logo-main">ICB</span>
+                        <span class="logo-sub">by Adiyar</span>
                     </div>
-                    <div class="user-profile" id="userProfile" style="display: none;">
-                        <div class="profile-avatar" id="profileAvatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                    <button class="theme-toggle-btn" data-theme-toggle aria-pressed="false">
+                        <span class="theme-toggle-icon" aria-hidden="true"></span>
+                        <span class="theme-toggle-label" data-theme-label>Светлая тема</span>
+                    </button>
+                </div>
+                <div class="header-buttons-wrapper" id="headerButtonsWrapper">
+                    <div class="header-buttons" id="headerButtons">
+                        <div class="auth-buttons">
+                            <button class="btn btn-register">Зарегистрироваться</button>
+                            <button class="btn btn-login">Войти</button>
                         </div>
-                        <span class="profile-name" id="profileName">Пользователь</span>
-                        <div class="profile-context-menu" id="profileContextMenu">
-                            <a href="journal.html" class="context-menu-item journal-btn">
+                        <div class="user-profile" id="userProfile" style="display: none;">
+                            <div class="profile-avatar" id="profileAvatar">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                                <span>Журнал</span>
-                            </a>
-                            <button class="context-menu-item logout-btn" id="logoutBtn">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                    <polyline points="16 17 21 12 16 7"></polyline>
-                                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg>
-                                <span>Выйти из аккаунта</span>
-                            </button>
+                            </div>
+                            <span class="profile-name" id="profileName">Пользователь</span>
+                            <div class="profile-context-menu" id="profileContextMenu">
+                                <a href="journal.html" class="context-menu-item journal-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    </svg>
+                                    <span>Журнал</span>
+                                </a>
+                                <button class="context-menu-item logout-btn" id="logoutBtn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg>
+                                    <span>Выйти из аккаунта</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
   </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true">
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true">
+            <div class="mobile-menu-header">
+                <span>Меню</span>
+                <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Закрыть меню">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="mobile-menu-body">
+                <button class="theme-toggle-btn theme-toggle-btn--mobile" data-theme-toggle aria-pressed="false">
+                    <span class="theme-toggle-icon" aria-hidden="true"></span>
+                    <span class="theme-toggle-label" data-theme-label>Светлая тема</span>
+                </button>
+                <div class="mobile-menu-actions" id="mobileMenuActions"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -581,6 +615,101 @@
     </div>
 
     <script>
+        // Theme toggle
+        const bodyEl = document.body;
+        const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
+        const themeToggleLabels = document.querySelectorAll('[data-theme-label]');
+        const THEME_STORAGE_KEY = 'preferredTheme';
+
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            bodyEl.classList.toggle('theme-light', isLight);
+            bodyEl.classList.toggle('theme-dark', !isLight);
+            themeToggleButtons.forEach(btn => btn.setAttribute('aria-pressed', isLight.toString()));
+            themeToggleLabels.forEach(label => {
+                label.textContent = isLight ? 'Тёмная тема' : 'Светлая тема';
+            });
+        }
+
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
+        applyTheme(savedTheme);
+
+        themeToggleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const nextTheme = bodyEl.classList.contains('theme-light') ? 'dark' : 'light';
+                applyTheme(nextTheme);
+                localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+            });
+        });
+
+        const burgerToggle = document.getElementById('burgerToggle');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const headerButtons = document.getElementById('headerButtons');
+        const headerButtonsWrapper = document.getElementById('headerButtonsWrapper');
+        const mobileMenuActions = document.getElementById('mobileMenuActions');
+        const MOBILE_MENU_BREAKPOINT = 768;
+
+        function moveHeaderButtons() {
+            if (!headerButtons || !mobileMenuActions || !headerButtonsWrapper) return;
+            if (window.innerWidth <= MOBILE_MENU_BREAKPOINT) {
+                if (!mobileMenuActions.contains(headerButtons)) {
+                    mobileMenuActions.appendChild(headerButtons);
+                }
+            } else if (!headerButtonsWrapper.contains(headerButtons)) {
+                headerButtonsWrapper.appendChild(headerButtons);
+                closeMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            if (!mobileMenuOverlay) return;
+            moveHeaderButtons();
+            burgerToggle?.setAttribute('aria-expanded', 'true');
+            mobileMenuOverlay.classList.add('active');
+            mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+            bodyEl.classList.add('mobile-menu-open');
+        }
+
+        function closeMobileMenu() {
+            if (!mobileMenuOverlay) return;
+            burgerToggle?.setAttribute('aria-expanded', 'false');
+            mobileMenuOverlay.classList.remove('active');
+            mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+            bodyEl.classList.remove('mobile-menu-open');
+        }
+
+        burgerToggle?.addEventListener('click', () => {
+            if (mobileMenuOverlay?.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+
+        mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+        mobileMenuOverlay?.addEventListener('click', (event) => {
+            if (event.target === mobileMenuOverlay) {
+                closeMobileMenu();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            moveHeaderButtons();
+            if (window.innerWidth > MOBILE_MENU_BREAKPOINT) {
+                closeMobileMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mobileMenuOverlay?.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        moveHeaderButtons();
+
         // Header scroll functionality
         const header = document.querySelector('.header');
         let lastScroll = 0;
@@ -702,6 +831,7 @@
         const profileName = document.getElementById('profileName');
         const profileContextMenu = document.getElementById('profileContextMenu');
         const logoutBtn = document.getElementById('logoutBtn');
+        const journalLink = document.querySelector('.journal-btn');
         
         // Функция для показа профиля
         function showUserProfile(login) {
@@ -787,6 +917,17 @@
             hideUserProfile();
             profileContextMenu.classList.remove('active');
         });
+
+        if (journalLink) {
+            journalLink.addEventListener('click', (event) => {
+                if (event.metaKey || event.ctrlKey) {
+                    return;
+                }
+                event.preventDefault();
+                profileContextMenu.classList.remove('active');
+                window.location.href = journalLink.getAttribute('href') || 'journal.html';
+            });
+        }
 
         // Support chat
         const supportChatBtn = document.getElementById('supportChatBtn');
@@ -1040,5 +1181,3 @@
     </script>
 </body>
 </html>
-
-
