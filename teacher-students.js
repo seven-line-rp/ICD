@@ -1374,3 +1374,68 @@ document.getElementById('reviewAssignmentModal').addEventListener('click', (e) =
 applyFilters();
 saveAssignments();
 
+// Mobile menu functionality
+const mobileBurgerBtn = document.getElementById('mobileBurgerBtn');
+const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
+const sidebar = document.querySelector('.sidebar');
+const MOBILE_BREAKPOINT = 600;
+
+function showMobileMenu() {
+    if (sidebar) sidebar.classList.add('open');
+    if (mobileSidebarOverlay) {
+        mobileSidebarOverlay.style.display = 'block';
+        mobileSidebarOverlay.classList.add('show');
+    }
+    if (mobileBurgerBtn) mobileBurgerBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function hideMobileMenu() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (mobileSidebarOverlay) {
+        mobileSidebarOverlay.classList.remove('show');
+        setTimeout(() => {
+            mobileSidebarOverlay.style.display = 'none';
+        }, 300);
+    }
+    if (mobileBurgerBtn) mobileBurgerBtn.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function updateMobileMenuVisibility() {
+    if (window.innerWidth <= MOBILE_BREAKPOINT) {
+        if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'flex';
+    } else {
+        if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'none';
+        hideMobileMenu();
+    }
+}
+
+if (mobileBurgerBtn) {
+    mobileBurgerBtn.addEventListener('click', () => {
+        if (sidebar && sidebar.classList.contains('open')) {
+            hideMobileMenu();
+        } else {
+            showMobileMenu();
+        }
+    });
+}
+
+if (mobileSidebarOverlay) {
+    mobileSidebarOverlay.addEventListener('click', hideMobileMenu);
+}
+
+// Close mobile menu when clicking on navigation items
+if (sidebar) {
+    sidebar.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= MOBILE_BREAKPOINT) {
+                hideMobileMenu();
+            }
+        });
+    });
+}
+
+window.addEventListener('resize', updateMobileMenuVisibility);
+updateMobileMenuVisibility();
+

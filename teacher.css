@@ -2052,30 +2052,178 @@ select::-ms-expand {
 }
 
 @media (max-width: 600px) {
-    .stat-card {
-        flex-direction: column;
-        align-items: flex-start;
+  .sidebar {
+    display: none;
+    position: fixed;
+    z-index: 20010;
+    height: 100vh;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.92);
+    width: 82vw;
+    min-width: 0;
+    max-width: 320px;
+    box-shadow: 4px 0 24px rgba(0,0,0,.35);
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    display: flex;
+    transform: translateX(0%);
+  }
+  
+  /* Mobile burger button */
+  .mobile-burger-btn {
+    display: flex !important;
+    position: fixed;
+    top: 14px;
+    left: 12px;
+    z-index: 20100;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: rgba(26, 35, 126, 0.95);
+    border-radius: 12px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+  }
+  
+  .mobile-burger-btn:active {
+    background: rgba(26, 35, 126, 1);
+    transform: scale(0.95);
+  }
+  
+  .mobile-burger-btn span {
+    width: 20px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .mobile-burger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+  
+  .mobile-burger-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-burger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+  
+  /* Mobile sidebar overlay */
+  .mobile-sidebar-overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .mobile-sidebar-overlay.show {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .main-content {
+    padding: 8px 0 20px 0;
+    margin-left: 0 !important;
+  }
+  .card, .stat-card {
+    padding: 10px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  form,
+  .form-group,
+  .filters-bar {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+  .filters-bar {
+    flex-direction: column !important;
+  }
+  .table-container {
+    overflow-x: auto;
+  }
+  table {
+    font-size: 13px;
+    min-width: 540px;
+  }
+  button, .btn, .icon-btn, .btn-add-student, .action-btn {
+    min-height: 44px;
+    font-size: 15px;
+    width: 100%;
+  }
+}
+
+/* Extra small screens - mobiles less than 380px */
+@media (max-width: 375px) {
+    .sidebar {
+        max-width: 85vw;
+    }
+    
+    .mobile-burger-btn {
+        width: 40px;
+        height: 40px;
+        top: 10px;
+        left: 8px;
+    }
+    
+    .main-content {
+        padding: 4px 0 16px 0;
+    }
+    
+    .content-header {
         gap: 12px;
+        padding: 12px;
     }
-
-    .action-btn {
+    
+    .stat-card {
+        padding: 8px;
+        gap: 8px;
+    }
+    
+    .card {
+        padding: 8px;
+    }
+    
+    table {
+        font-size: 12px;
+        min-width: 500px;
+    }
+    
+    /* Modal windows optimization */
+    .modal-overlay {
+        padding: 12px;
+    }
+    
+    .modal-content {
+        border-radius: 16px;
+        max-width: 100%;
         width: 100%;
-        justify-content: center;
     }
-
-    .course-card,
-    .assignment-card,
-    .submission-item {
+    
+    .modal-header {
         padding: 16px;
-    }
-
-    .table-container {
-        margin: 0 -8px;
-        padding-bottom: 8px;
-    }
-
-    .form-row {
-        flex-direction: column;
+        gap: 12px;
     }
 }
 
