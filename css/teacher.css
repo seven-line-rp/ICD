@@ -305,7 +305,8 @@
 /* Simplified override for courses + schedule */
 #scheduleGrid {
     display: block;
-    overflow-x: auto;
+    overflow-x: hidden;
+    margin: 0;
 }
 
 .schedule-table {
@@ -948,6 +949,57 @@
     .schedule-grid {
         grid-template-columns: 1fr;
     }
+
+    /* Teacher schedule in modal: render as compact vertical list */
+    #scheduleGrid {
+        margin: 0;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .schedule-modal #scheduleGrid .assignment-card {
+        padding: 12px;
+        border-radius: 12px;
+        gap: 10px;
+        box-shadow: none;
+        margin-bottom: 0;
+    }
+
+    .schedule-modal #scheduleGrid .assignment-card-header h4 {
+        font-size: 14px;
+    }
+
+    .schedule-modal #scheduleGrid .assignment-card-body p {
+        font-size: 12px;
+        line-height: 1.35;
+    }
+
+    .schedule-modal #scheduleGrid .action-buttons {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: flex-end;
+    }
+
+    .schedule-modal #scheduleGrid .action-buttons .btn-primary,
+    .schedule-modal #scheduleGrid .action-buttons .btn-secondary {
+        padding: 8px 10px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .schedule-modal #scheduleGrid {
+        gap: 10px;
+    }
+
+    .schedule-modal #scheduleGrid .assignment-card {
+        padding: 10px;
+        border-radius: 12px;
+        gap: 8px;
+    }
 }
 
 .schedule-day {
@@ -1524,6 +1576,44 @@
     font-weight: 700;
     color: var(--white);
     margin: 0 0 8px 0;
+}
+
+/* Table stability: prevent "jumping" column widths / misalignment */
+.students-table {
+    table-layout: fixed;
+}
+
+.students-table th,
+.students-table td {
+    vertical-align: middle;
+}
+
+.students-table td {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.students-table th:last-child,
+.students-table td:last-child {
+    width: 210px;
+}
+
+.students-table th:nth-child(2),
+.students-table td:nth-child(2) {
+    width: 260px;
+}
+
+.students-table th:nth-child(6),
+.students-table td:nth-child(6) {
+    width: 150px;
+}
+
+.table-actions {
+    align-items: center;
+}
+
+.table-actions .btn-icon {
+    flex: 0 0 auto;
 }
 
 .page-subtitle {
@@ -2611,7 +2701,8 @@ select::-ms-expand {
   .table-container {
     overflow-x: auto;
   }
-  table {
+  .attendance-table,
+  .attendance-week-table {
     font-size: 13px;
     min-width: 540px;
   }
@@ -2652,8 +2743,9 @@ select::-ms-expand {
     .card {
         padding: 8px;
     }
-    
-    table {
+
+  .attendance-table,
+  .attendance-week-table {
         font-size: 12px;
         min-width: 500px;
     }
