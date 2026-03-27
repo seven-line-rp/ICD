@@ -3,7 +3,7 @@
 // Check if user is teacher
 const userRole = localStorage.getItem('userRole');
 if (userRole !== 'teacher') {
-    window.location.href = 'index.html';
+    window.location.hash = '#home';
 }
 
 // Sample data
@@ -83,31 +83,62 @@ function saveData() {
     localStorage.setItem('teacherStudents', JSON.stringify(students));
 }
 
-// DOM Elements
-const studentsList = document.getElementById('studentsList');
-const attendanceCalendar = document.getElementById('attendanceCalendar');
-const studentInfoPanel = document.getElementById('studentInfoPanel');
-const groupFilter = document.getElementById('groupFilter');
-const monthFilter = document.getElementById('monthFilter');
-const subjectFilter = document.getElementById('subjectFilter');
-const resetFiltersBtn = document.getElementById('resetFiltersBtn');
-const exportBtn = document.getElementById('exportBtn');
-const closeInfoBtn = document.getElementById('closeInfoBtn');
+// DOM Elements (bound on init)
+let studentsList = null;
+let attendanceCalendar = null;
+let studentInfoPanel = null;
+let groupFilter = null;
+let monthFilter = null;
+let subjectFilter = null;
+let resetFiltersBtn = null;
+let exportBtn = null;
+let closeInfoBtn = null;
 
-// Set current month
-const today = new Date();
-monthFilter.valueAsDate = today;
+let __attendanceBeforeUnloadBound = false;
 
-// Initialize
-loadData();
-renderStatistics();
-updateStudentsPanel();
-renderCalendar();
-setupEventListeners();
+function bindDom() {
+    studentsList = document.getElementById('studentsList');
+    attendanceCalendar = document.getElementById('attendanceCalendar');
+    studentInfoPanel = document.getElementById('studentInfoPanel');
+    groupFilter = document.getElementById('groupFilter');
+    monthFilter = document.getElementById('monthFilter');
+    subjectFilter = document.getElementById('subjectFilter');
+    resetFiltersBtn = document.getElementById('resetFiltersBtn');
+    exportBtn = document.getElementById('exportBtn');
+    closeInfoBtn = document.getElementById('closeInfoBtn');
+}
 
-window.addEventListener('beforeunload', () => {
-    saveData();
+function initAttendancePage() {
+    bindDom();
+
+    // If we're not on the attendance page right now, do nothing.
+    if (!studentsList || !monthFilter || !groupFilter || !subjectFilter) return;
+
+    // Set current month
+    const today = new Date();
+    monthFilter.valueAsDate = today;
+    currentMonth = new Date(today);
+    currentSelectedStudent = null;
+
+    loadData();
+    renderStatistics();
+    updateStudentsPanel();
+    renderCalendar();
+    setupEventListeners();
+
+    if (!__attendanceBeforeUnloadBound) {
+        window.addEventListener('beforeunload', () => {
+            saveData();
+        });
+        __attendanceBeforeUnloadBound = true;
+    }
+}
+
+// SPA mount hook + first run
+window.addEventListener('spa:mounted', (e) => {
+    if (e?.detail?.hash === '#attendance') initAttendancePage();
 });
+initAttendancePage();
 
 function setupEventListeners() {
     groupFilter.addEventListener('change', updateStudentsPanel);

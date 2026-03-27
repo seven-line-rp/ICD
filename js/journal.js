@@ -12,7 +12,7 @@ if (userRole === 'teacher') {
     const navSection = document.querySelector('.nav-section');
     if (navSection) {
         const journalLink = document.createElement('a');
-        journalLink.href = 'teacher-students.html';
+        journalLink.href = '#teacher-students';
         journalLink.className = 'nav-item';
         journalLink.innerHTML = `
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

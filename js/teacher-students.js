@@ -13,11 +13,11 @@ db.version(1).stores({
 // Check if user is teacher
 const userRole = localStorage.getItem('userRole');
 if (userRole !== 'teacher') {
-    window.location.href = 'index.html';
+    window.location.hash = '#home';
 }
 
 // Students Data (will be loaded from Dexie)
-let students = [];
+let students = [
     {
         id: 1,
         name: 'Иванов Иван Иванович',
@@ -1412,75 +1412,90 @@ async function initApp() {
     await saveAssignments();
 }
 
-initApp();
-
-// Global save on unload / changes
-window.addEventListener('beforeunload', () => {
-    saveData();
-});
-
-// Mobile menu functionality
-const mobileBurgerBtn = document.getElementById('mobileBurgerBtn');
-const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
-const sidebar = document.querySelector('.sidebar');
+let __teacherStudentsBeforeUnloadBound = false;
+let __teacherStudentsResizeBound = false;
 const MOBILE_BREAKPOINT = 600;
 
-function showMobileMenu() {
-    if (sidebar) sidebar.classList.add('open');
-    if (mobileSidebarOverlay) {
-        mobileSidebarOverlay.style.display = 'block';
-        mobileSidebarOverlay.classList.add('show');
-    }
-    if (mobileBurgerBtn) mobileBurgerBtn.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+function setupMobileMenuForTeacherStudents() {
+    const mobileBurgerBtn = document.getElementById('mobileBurgerBtn');
+    const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
+    const sidebar = document.querySelector('.sidebar');
 
-function hideMobileMenu() {
-    if (sidebar) sidebar.classList.remove('open');
-    if (mobileSidebarOverlay) {
-        mobileSidebarOverlay.classList.remove('show');
-        setTimeout(() => {
-            mobileSidebarOverlay.style.display = 'none';
-        }, 300);
-    }
-    if (mobileBurgerBtn) mobileBurgerBtn.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function updateMobileMenuVisibility() {
-    if (window.innerWidth <= MOBILE_BREAKPOINT) {
-        if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'flex';
-    } else {
-        if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'none';
-        hideMobileMenu();
-    }
-}
-
-if (mobileBurgerBtn) {
-    mobileBurgerBtn.addEventListener('click', () => {
-        if (sidebar && sidebar.classList.contains('open')) {
-            hideMobileMenu();
-        } else {
-            showMobileMenu();
+    function showMobileMenu() {
+        if (sidebar) sidebar.classList.add('open');
+        if (mobileSidebarOverlay) {
+            mobileSidebarOverlay.style.display = 'block';
+            mobileSidebarOverlay.classList.add('show');
         }
-    });
-}
+        if (mobileBurgerBtn) mobileBurgerBtn.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 
-if (mobileSidebarOverlay) {
-    mobileSidebarOverlay.addEventListener('click', hideMobileMenu);
-}
+    function hideMobileMenu() {
+        if (sidebar) sidebar.classList.remove('open');
+        if (mobileSidebarOverlay) {
+            mobileSidebarOverlay.classList.remove('show');
+            setTimeout(() => {
+                mobileSidebarOverlay.style.display = 'none';
+            }, 300);
+        }
+        if (mobileBurgerBtn) mobileBurgerBtn.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 
-// Close mobile menu when clicking on navigation items
-if (sidebar) {
-    sidebar.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= MOBILE_BREAKPOINT) {
-                hideMobileMenu();
-            }
+    function updateMobileMenuVisibility() {
+        if (window.innerWidth <= MOBILE_BREAKPOINT) {
+            if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'flex';
+        } else {
+            if (mobileBurgerBtn) mobileBurgerBtn.style.display = 'none';
+            hideMobileMenu();
+        }
+    }
+
+    if (mobileBurgerBtn) {
+        mobileBurgerBtn.onclick = () => {
+            if (sidebar && sidebar.classList.contains('open')) hideMobileMenu();
+            else showMobileMenu();
+        };
+    }
+
+    if (mobileSidebarOverlay) {
+        mobileSidebarOverlay.onclick = hideMobileMenu;
+    }
+
+    if (sidebar) {
+        sidebar.querySelectorAll('.nav-item').forEach(item => {
+            item.onclick = () => {
+                if (window.innerWidth <= MOBILE_BREAKPOINT) hideMobileMenu();
+            };
         });
-    });
+    }
+
+    updateMobileMenuVisibility();
+
+    if (!__teacherStudentsResizeBound) {
+        window.addEventListener('resize', updateMobileMenuVisibility);
+        __teacherStudentsResizeBound = true;
+    }
 }
 
-window.addEventListener('resize', updateMobileMenuVisibility);
-updateMobileMenuVisibility();
+function initTeacherStudentsPage() {
+    // guard: ensure template mounted
+    if (!document.getElementById('studentsTableBody')) return;
+    initApp();
+    setupMobileMenuForTeacherStudents();
+
+    if (!__teacherStudentsBeforeUnloadBound) {
+        window.addEventListener('beforeunload', () => {
+            saveData();
+        });
+        __teacherStudentsBeforeUnloadBound = true;
+    }
+}
+
+// SPA mount hook + first run
+window.addEventListener('spa:mounted', (e) => {
+    if (e?.detail?.hash === '#teacher-students') initTeacherStudentsPage();
+});
+initTeacherStudentsPage();
 

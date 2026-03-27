@@ -13,7 +13,7 @@ db.version(1).stores({
 // Check if user is teacher
 const userRole = localStorage.getItem('userRole');
 if (userRole !== 'teacher') {
-    window.location.href = 'index.html';
+    window.location.hash = '#home';
 }
 
 // Get teacher login
@@ -320,7 +320,7 @@ function renderRecentStudents() {
                 </div>
             </div>
             <div class="student-actions">
-                <a href="teacher-students.html" class="btn-icon view-btn" title="Просмотр">
+                <a href="#teacher-students" class="btn-icon view-btn" title="Просмотр">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
@@ -330,7 +330,7 @@ function renderRecentStudents() {
         `;
         item.addEventListener('click', () => {
             localStorage.setItem('selectedStudentId', student.id);
-            window.location.href = 'teacher-students.html';
+            window.location.hash = '#teacher-students';
         });
         list.appendChild(item);
     });
@@ -429,7 +429,7 @@ function formatNotificationDate(dateString) {
 
 // Event Listeners
 document.getElementById('viewStudentsBtn').addEventListener('click', () => {
-    window.location.href = 'teacher-students.html';
+    window.location.hash = '#teacher-students';
 });
 
 document.getElementById('assignmentsBtn').addEventListener('click', (e) => {
@@ -501,7 +501,7 @@ document.getElementById('teacherSearch').addEventListener('input', (e) => {
                 </div>
             </div>
             <div class="student-actions">
-                <a href="teacher-students.html" class="btn-icon view-btn" title="Просмотр">
+                <a href="#teacher-students" class="btn-icon view-btn" title="Просмотр">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
@@ -512,7 +512,7 @@ document.getElementById('teacherSearch').addEventListener('input', (e) => {
 
         item.addEventListener('click', () => {
             localStorage.setItem('selectedStudentId', student.id);
-            window.location.href = 'teacher-students.html';
+            window.location.hash = '#teacher-students';
         });
 
         list.appendChild(item);
