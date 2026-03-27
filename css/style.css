@@ -764,12 +764,12 @@ body.theme-light .logout-btn {
 .feature-card,
 .service-card,
 .subject-card {
-    background: linear-gradient(150deg, rgba(6, 10, 40, 0.88), rgba(8, 12, 55, 0.76));
+    background: linear-gradient(150deg, rgba(10, 15, 50, 0.95), rgba(15, 20, 70, 0.9));
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 32px;
     transition: all 0.35s ease;
-    box-shadow: 0 20px 45px rgba(2, 4, 18, 0.65);
+    box-shadow: 0 20px 45px rgba(2, 4, 18, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
 }
@@ -793,7 +793,7 @@ body.theme-light .logout-btn {
 .feature-icon {
     width: 60px;
     height: 60px;
-    border-radius: 12px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -819,7 +819,6 @@ body.theme-light .logout-btn {
 
 .feature-icon-blue {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(59, 130, 246, 0.35));
-    border-radius: 50%;
 }
 
 .feature-icon-purple {
@@ -983,7 +982,7 @@ body.theme-light .service-card::before {
     right: 20px;
     width: 40px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1055,7 +1054,7 @@ body.theme-light .service-card::before {
 .subject-icon {
     width: 50px;
     height: 50px;
-    border-radius: 10px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
